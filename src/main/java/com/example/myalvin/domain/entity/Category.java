@@ -1,4 +1,4 @@
-package com.example.myalvin.entity;
+package com.example.myalvin.domain.entity;
 
 import lombok.Getter;
 
@@ -15,6 +15,8 @@ public class Category {
     @Column(name = "category_id")
     private Long id;
 
+    //chat onetoone
+
     private String business;
 
     private String fitness;
@@ -24,11 +26,5 @@ public class Category {
     private String life;
 
     private String other;
-
-
-
-
-
-
 
 }

@@ -1,4 +1,4 @@
-package com.example.myalvin.entity;
+package com.example.myalvin.domain.entity;
 
 import lombok.Getter;
 import org.springframework.data.annotation.CreatedDate;
