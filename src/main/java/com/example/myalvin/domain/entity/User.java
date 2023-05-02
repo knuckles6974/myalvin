@@ -36,9 +36,8 @@ public class User {
     @OneToMany(mappedBy = "user", fetch = LAZY)//양방향  //읽기전용
     private List<Aim> aim = new ArrayList<>(); //nullpoint
 
-/**
-    @OneToMany()
-    chat
-**/
+    @OneToMany(mappedBy = "user", fetch = LAZY)
+    private List<Chat> chat = new ArrayList<>();
+
 
 }

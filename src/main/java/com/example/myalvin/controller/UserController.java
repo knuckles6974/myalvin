@@ -9,15 +9,21 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class UserController {
 
-    @GetMapping("myalvin/login")
+    @GetMapping("/user/login")
     public String login() {
-        return"login";
+        return "login";
     }
 
-    @GetMapping("myalvin/signup")
+    @GetMapping("/user/signup")
     public String signup() {
         return "signup";
     }
+
+    @GetMapping("/user/update/{id}")    //해당 유저정보를 가져와 다른 계층에서 처리
+    public String update() {
+        return
+    }
+
 
 
 }
