@@ -32,11 +32,17 @@ public class AimController {
 
     @GetMapping("/aim/update/{id}")
     public String update_aim() {
+
         return aimService.update_aim();
 
     }
 
-    @DeleteMapping()
+    @DeleteMapping("/aim/delete/{id}")
+    public void delete_aim() {
+
+        aimService.delete_aim();
+    }
+
 
 
 

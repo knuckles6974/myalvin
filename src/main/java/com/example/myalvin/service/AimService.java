@@ -15,4 +15,7 @@ public class AimService {
 
     public String update_aim() {
     }
+
+    public void delete_aim() {
+    }
 }
