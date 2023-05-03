@@ -11,8 +11,13 @@ public class UserService {
         return "";
     }
 
-//    public List<User> findUsers() {
-//        return "";
-//    }
+    public String findUsers() {
+    }
 
+
+    public String signup() {
+    }
+
+    public void deleteuser() {
+    }
 }
