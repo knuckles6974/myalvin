@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class AimController {
 
 
-    private AimRepository repository;
+    private AimService aimService;
 
 //    @GetMapping("myalvin/aim")
 //    public aimMembers aim() {
