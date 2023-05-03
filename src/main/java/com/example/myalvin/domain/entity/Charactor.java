@@ -18,6 +18,9 @@ public class Charactor {
     @JoinColumn(name = "user_id")
     private User user;
 
+    @OneToOne
+    private Chat chat;
+
     private String charactor_image;
 
 

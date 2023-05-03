@@ -4,6 +4,8 @@ import lombok.Getter;
 
 import javax.persistence.*;
 
+import static javax.persistence.FetchType.LAZY;
+
 @Entity
 @Getter
 public class Mypage {
@@ -13,11 +15,14 @@ public class Mypage {
     @Column(name = "mypage_id")
     private Long id;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = LAZY)
     @JoinColumn(name = "user_id")
     private User user;
 
     private String nickname;
+
+    @OneToOne
+    private Charactor charactor;
 
     private int level;//글등록시 레벨업
 

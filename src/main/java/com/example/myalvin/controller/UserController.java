@@ -22,7 +22,7 @@ public class UserController {
     @GetMapping("/user/login")
     public String login() {
 
-        return userService.login() ;
+        return userService.login();
     }
 
     @GetMapping("/user/signup")
@@ -36,10 +36,10 @@ public class UserController {
 
         return "";
     }
-
+//
 //    @GetMapping("/user/users")
 //    public List<User> findUsers() {
-//        return users;
+//        return userService.findUsers();
 //    }
 
 

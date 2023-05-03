@@ -2,10 +2,7 @@ package com.example.myalvin.domain.entity;
 
 import lombok.Getter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @Getter
@@ -15,7 +12,11 @@ public class Category {
     @Column(name = "category_id")
     private Long id;
 
-    //chat onetoone
+    @OneToOne
+    private Chat chat;
+
+    @OneToOne
+    private Alarm alarm;
 
     private String business;
 

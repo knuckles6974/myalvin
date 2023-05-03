@@ -2,8 +2,11 @@ package com.example.myalvin.domain.entity;
 
 
 import lombok.Getter;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
+
+import static javax.persistence.FetchType.LAZY;
 
 @Entity
 @Getter
@@ -13,11 +16,11 @@ public class Chat {
     @GeneratedValue
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = LAZY)
     @JoinColumn(name = "category_id")
     private Category category;
 

@@ -1,4 +1,4 @@
 package com.example.myalvin.repository;
 
-public class AimRepository {
+public interface AimRepository {
 }
