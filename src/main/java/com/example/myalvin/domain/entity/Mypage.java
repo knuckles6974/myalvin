@@ -24,13 +24,10 @@ public class Mypage {
     @OneToOne
     private Charactor charactor;
 
-    private int level;//글등록시 레벨업
-
     private String introduction;
 
     private String dailyroutine;
 
-    private String MessageStatus;
 
 
 

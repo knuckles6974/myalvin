@@ -20,10 +20,6 @@ public class Chat {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToOne(fetch = LAZY)
-    @JoinColumn(name = "category_id")
-    private Category category;
-
     private String chat;
 
 }

@@ -1,4 +1,4 @@
 package com.example.myalvin.controller;
 
-public class CategoryController {
+public class AdminController {
 }

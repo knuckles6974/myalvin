@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("aim")
+@RequestMapping("/aim/")
 public class AimController {
 
     @Autowired
@@ -25,20 +25,20 @@ public class AimController {
     }
 
     @PostMapping("/aim/post")
-    public String post() {
+    public String post_aim() {
 
         return aimService.postaim();
     }
 
-    @GetMapping("/aim/update/{id}")
-    public String update_aim() {
+    @GetMapping("/aim/update/{user_id}")
+    public String update_aim(@PathVariable(name = "user_id") Long user_id) {
 
         return aimService.update_aim();
 
     }
 
-    @DeleteMapping("/aim/delete/{id}")
-    public void delete_aim() {
+    @DeleteMapping("/aim/delete/{user_id}")
+    public void delete_aim(@PathVariable(name = "user_id") Long user_id) {
 
         aimService.delete_aim();
     }

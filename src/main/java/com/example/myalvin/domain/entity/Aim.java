@@ -28,9 +28,6 @@ public class Aim  {
         user.getAim().add(this);
     }
 
-    @OneToOne(fetch = LAZY)
-    @JoinColumn(name = "category_id")
-    private Category category;
     private String description;
     private String images;
 

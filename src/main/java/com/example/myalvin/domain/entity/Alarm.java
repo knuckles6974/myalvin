@@ -17,10 +17,6 @@ public class Alarm {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
-
-    @OneToOne
-    @JoinColumn(name = "category_id")
-    private Category category;
     private String description;
     private LocalDateTime time;
 

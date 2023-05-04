@@ -1,4 +1,7 @@
 package com.example.myalvin.repository;
 
-public interface AimRepository {
+import com.example.myalvin.domain.entity.Aim;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface AimRepository extends JpaRepository<Aim, Long> {
 }

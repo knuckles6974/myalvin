@@ -8,7 +8,6 @@ import javax.persistence.*;
 @Entity
 @Getter
 public class Charactor {
-
     @Id
     @GeneratedValue
     @Column(name = "charactor_id")
@@ -18,10 +17,9 @@ public class Charactor {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToOne
-    private Chat chat;
+    private int level;//글등록시 레벨업
 
-    private String charactor_image;
+    private String charactor_image; //admin
 
 
 
