@@ -9,9 +9,10 @@ import javax.persistence.*;
 @Getter
 public class Charactor {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "charactor_id")
     private Long id;
+
 
     @OneToOne(mappedBy = "charactor")
     @JoinColumn(name = "user_id")

@@ -10,7 +10,7 @@ import static javax.persistence.FetchType.LAZY;
 @Getter
 public class Aim  {
 
-    @Id @GeneratedValue
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "aim_id")
     private Long id;
 

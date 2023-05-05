@@ -15,11 +15,11 @@ import static javax.persistence.FetchType.LAZY;
 public class User {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
     private  Long id;
 
-    private String memberid;
+    private String member_id;
 
     private String password;
 

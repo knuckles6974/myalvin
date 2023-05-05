@@ -13,7 +13,7 @@ import static javax.persistence.FetchType.LAZY;
 public class Chat {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne(fetch = LAZY)
