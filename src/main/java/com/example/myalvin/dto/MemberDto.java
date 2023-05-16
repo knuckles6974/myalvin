@@ -8,19 +8,17 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-public class UserDto {
+public class MemberDto {
 
     private Long id;
 
-    private String member_id;
+    private String email;
 
     private String password;
 
     private String name;
 
     private String phone;
-
-    private String email;
 
     private int follower;
 

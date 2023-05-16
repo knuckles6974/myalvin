@@ -2,7 +2,6 @@ package com.example.myalvin.domain.entity;
 
 
 import lombok.Getter;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
 
@@ -19,9 +18,10 @@ public class Chat {
     private int room_id;
 
     @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "user_id")
-    private User user;
+    @JoinColumn(name = "member_id")
+    private Member member;
 
+    @Column(length = 20)
     private String chat;
 
 }

@@ -16,16 +16,19 @@ public class Mypage {
     private Long id;
 
     @OneToOne(fetch = LAZY)
-    @JoinColumn(name = "user_id")
-    private User user;
+    @JoinColumn(name = "member_id")
+    private Member member;
 
+    @Column(length = 10)
     private String nickname;
 
     @OneToOne
     private Charactor charactor;
 
+    @Column(length = 100)
     private String introduction;
 
+    @Column(length = 1000)
     private String dailyroutine;
 
 

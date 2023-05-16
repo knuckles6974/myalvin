@@ -11,15 +11,22 @@ spring:
 
 jpa:
   hibernate:
-    ddl-auto: none
+    ddl-auto: create
   properties:
     hibernate:
       #show_sql:true
       format_sql: true
+      defer-datasource-initialization: true
 
-logging.level:
-  org.hibernate.SQL: debug
+logging:
+  level:
+    org.example.MyClass: debug
 # org.hibernate.type: trace
 server:
   port: 8080
+jwt:
+  header: Authorization
+  secret: c2lsdmVybmluZS10ZWNoLXNwcmluZy1ib290LWp3dC10dXRvcmlhbC1zZWNyZXQtc2lsdmVybmluZS10ZWNoLXNwcmluZy1ib290LWp3dC10dXRvcmlhbC1zZW
+  token-validity-in-seconds: 6400
+
 

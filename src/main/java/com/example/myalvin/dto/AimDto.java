@@ -1,6 +1,6 @@
 package com.example.myalvin.dto;
 
-import com.example.myalvin.domain.entity.User;
+import com.example.myalvin.domain.entity.Member;
 import lombok.Data;
 
 @Data
@@ -10,7 +10,7 @@ public class AimDto {
 
     private String title;
 
-    private User user;
+    private Member member;
 
     private String description;
 
