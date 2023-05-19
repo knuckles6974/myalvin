@@ -18,15 +18,8 @@ public class Aim {
     @JoinColumn(name = "member_id")   //다쪽에 외래키, joincolumn , 연관관계주인이 fk로들어온다
     private Member member;
 
-    public void changeMember(Member member) {
-        if (this.member != null) {
-            this.member.getAim().remove(this);
-        }
-        this.member = member;
-        member.getAim().add(this);
-    }
-
     private String description;
+
     private String images;
 
 

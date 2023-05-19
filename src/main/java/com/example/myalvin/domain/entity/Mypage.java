@@ -15,14 +15,14 @@ public class Mypage {
     @Column(name = "mypage_id")
     private Long id;
 
-    @OneToOne(fetch = LAZY)
+    @OneToOne(fetch = LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "member_id")
     private Member member;
 
     @Column(length = 10)
     private String nickname;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Charactor charactor;
 
     @Column(length = 100)

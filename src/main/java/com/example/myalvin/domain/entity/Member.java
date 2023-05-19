@@ -46,11 +46,11 @@ public class Member implements UserDetails {
     private int following;
 
     @Nullable
-    @OneToMany(mappedBy = "member", fetch = LAZY)//양방향  //읽기전용
+    @OneToMany(mappedBy = "member", fetch = LAZY, cascade = CascadeType.ALL )//양방향  //읽기전용
     private List<Aim> aim = new ArrayList<>(); //nullpoint
 
     @Nullable
-    @OneToMany(mappedBy = "member", fetch = LAZY)
+    @OneToMany(mappedBy = "member", fetch = LAZY, cascade = CascadeType.PERSIST)
     private List<Chat> chat = new ArrayList<>();
 
     @Builder
