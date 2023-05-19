@@ -16,6 +16,10 @@ public class MemberDto {
 
     private String password;
 
+    public MemberDto(String name) {
+        this.name = name;
+    }
+
     private String name;
 
     private String phone;

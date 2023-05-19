@@ -10,7 +10,6 @@ import lombok.ToString;
 import javax.validation.constraints.NotBlank;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-@ToString
 @Getter
 public class MemberSignupDto {
 

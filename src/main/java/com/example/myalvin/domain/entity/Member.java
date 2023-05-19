@@ -32,6 +32,7 @@ public class Member implements UserDetails {
     @Column(length = 50)
     private String password;
 
+
     @Column(length = 5)
     private String name;
 
@@ -71,7 +72,7 @@ public class Member implements UserDetails {
 
     @Override
     public String getUsername() {
-        return null;
+        return email;
     }
 
     @Override
@@ -98,8 +99,13 @@ public class Member implements UserDetails {
         this.password = password;
     }
 
-    public void updateName(String name) {
-        this.password = password;
+    public void updatePhone(String phone) {
+
+        this.phone = phone;
+    }
+
+    public void updateEmail(String email) {
+        this.email = email;
     }
 
 }

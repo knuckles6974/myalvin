@@ -20,4 +20,6 @@ public class MemberRepositoryImpl {
         return member;
     }
 
+
+
 }
