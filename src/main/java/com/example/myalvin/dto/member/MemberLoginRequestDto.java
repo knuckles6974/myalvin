@@ -1,20 +1,23 @@
-package com.example.myalvin.dto;
+package com.example.myalvin.dto.member;
+
 
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-@Getter
+import javax.validation.constraints.NotBlank;
+
 @ToString
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class MemberUpdateInfo {
+@Getter
+public class MemberLoginRequestDto {
 
+    @NotBlank
     private String email;
 
+    @NotBlank
     private String password;
-
-    private String phone;
 
 
 }

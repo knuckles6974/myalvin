@@ -1,7 +1,8 @@
 package com.example.myalvin.validator;
 
 
-import com.example.myalvin.dto.MemberSignupDto;
+import com.example.myalvin.dto.member.MemberLoginRequestDto;
+import com.example.myalvin.dto.member.MemberSignupDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 

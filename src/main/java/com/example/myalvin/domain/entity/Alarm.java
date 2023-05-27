@@ -1,13 +1,14 @@
 package com.example.myalvin.domain.entity;
 
 import lombok.Getter;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
-@Entity
+@Entity(name = "alarm")
 @Getter
-public class Alarm {
+public class Alarm extends BaseTime{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

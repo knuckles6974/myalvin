@@ -1,5 +1,6 @@
 package com.example.myalvin.dto;
 
+import com.example.myalvin.domain.entity.Chat;
 import com.example.myalvin.domain.entity.Member;
 import lombok.Data;
 
@@ -11,6 +12,11 @@ public class ChatDto {
     private Member member;
 
     private String chat;
+
+    public ChatDto(Chat chat) {
+
+
+    }
 
 
 }

@@ -1,4 +1,4 @@
-package com.example.myalvin.dto;
+package com.example.myalvin.dto.member;
 
 
 import com.example.myalvin.domain.entity.Member;

@@ -1,14 +1,15 @@
 package com.example.myalvin.domain.entity;
 
 import lombok.Getter;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 
 import javax.persistence.*;
 
 import static javax.persistence.FetchType.LAZY;
 
-@Entity
+@Entity(name = "mypage")
 @Getter
-public class Mypage {
+public class Mypage extends BaseTime {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

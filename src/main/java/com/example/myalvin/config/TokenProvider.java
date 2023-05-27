@@ -1,17 +1,17 @@
 package com.example.myalvin.config;
 
-import com.example.myalvin.domain.entity.Member;
-import com.example.myalvin.domain.entity.TokenInfo;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Component;
 
 import java.security.Key;
@@ -20,33 +20,29 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.stream.Collectors;
 
-@Slf4j
 @Component
 public class TokenProvider implements InitializingBean {
 
+    private final Logger logger = LoggerFactory.getLogger(TokenProvider.class);
     private static final String AUTHORITIES_KEY = "auth";
-    private static final String GRANT_TYPE = "Bearer";
     private final String secret;
     private final long tokenValidityInMilliseconds;
     private Key key;
 
-    // application.yml 의 설정값
-    public TokenProvider(@Value("${jwt.secret}") String secret,
-                         @Value("${jwt.token-validity-in-seconds}") long tokenValiditySeconds) {
+    public TokenProvider(
+            @Value("${jwt.secret}") String secret,
+            @Value("${jwt.token-validity-in-seconds}") long tokenValidityInSeconds) {
         this.secret = secret;
-        this.tokenValidityInMilliseconds = tokenValiditySeconds * 1000;
+        this.tokenValidityInMilliseconds = tokenValidityInSeconds * 1000;
     }
 
-    // 문자열을 바이트 배열로 Base64 decode 후, 비밀키로 설정
     @Override
     public void afterPropertiesSet() {
         byte[] keyBytes = Decoders.BASE64.decode(secret);
         this.key = Keys.hmacShaKeyFor(keyBytes);
-
-        log.debug("keyBytes : {} bytes ({} bits)", keyBytes.length, keyBytes.length * 8);
     }
 
-    public TokenInfo createToken(Authentication authentication) {
+    public String createToken(Authentication authentication) {
         String authorities = authentication.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.joining(","));
@@ -54,17 +50,12 @@ public class TokenProvider implements InitializingBean {
         long now = (new Date()).getTime();
         Date validity = new Date(now + this.tokenValidityInMilliseconds);
 
-        String accessToken = Jwts.builder()
+        return Jwts.builder()
                 .setSubject(authentication.getName())
                 .claim(AUTHORITIES_KEY, authorities)
                 .signWith(key, SignatureAlgorithm.HS512)
                 .setExpiration(validity)
                 .compact();
-
-        return TokenInfo.builder()
-                .grantType(GRANT_TYPE)
-                .accessToken(accessToken)
-                .build();
     }
 
     public Authentication getAuthentication(String token) {
@@ -80,11 +71,7 @@ public class TokenProvider implements InitializingBean {
                         .map(SimpleGrantedAuthority::new)
                         .collect(Collectors.toList());
 
-        log.debug("claims = {}", claims);
-        Member principal = Member.builder()
-                .email(claims.getSubject())
-                .password("")
-                .build();
+        User principal = new User(claims.getSubject(), "", authorities);
 
         return new UsernamePasswordAuthenticationToken(principal, token, authorities);
     }
@@ -94,13 +81,13 @@ public class TokenProvider implements InitializingBean {
             Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
             return true;
         } catch (io.jsonwebtoken.security.SecurityException | MalformedJwtException e) {
-            log.debug("잘못된 JWT 서명입니다");
+            logger.info("잘못된 JWT 서명입니다.");
         } catch (ExpiredJwtException e) {
-            log.debug("만료된 JWT 토큰입니다");
+            logger.info("만료된 JWT 토큰입니다.");
         } catch (UnsupportedJwtException e) {
-            log.debug("지원되지 않는 JWT 토큰입니다");
+            logger.info("지원되지 않는 JWT 토큰입니다.");
         } catch (IllegalArgumentException e) {
-            log.debug("JWT 토큰이 잘못되었습니다");
+            logger.info("JWT 토큰이 잘못되었습니다.");
         }
         return false;
     }

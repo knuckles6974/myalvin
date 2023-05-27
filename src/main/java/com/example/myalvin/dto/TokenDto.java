@@ -1,0 +1,15 @@
+package com.example.myalvin.dto;
+
+import lombok.*;
+
+import lombok.*;
+
+@Getter
+@Setter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+public class TokenDto {
+
+    private String token;
+}

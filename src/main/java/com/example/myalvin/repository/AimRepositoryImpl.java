@@ -1,6 +1,5 @@
 package com.example.myalvin.repository;
 
-import com.example.myalvin.domain.entity.Member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -9,23 +8,10 @@ import javax.persistence.PersistenceContext;
 
 @Repository
 @RequiredArgsConstructor
-public class MemberRepositoryImpl {
+public class AimRepositoryImpl {
 
     @PersistenceContext
     private final EntityManager em;
-
-    public Member save(Member member) {
-
-        em.persist(member);
-        return member;
-    }
-
-    public Member findOne(Long id) {
-        return em.find(Member.class, id);
-
-
-    }
-
 
 
 

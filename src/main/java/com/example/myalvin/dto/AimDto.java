@@ -1,5 +1,6 @@
 package com.example.myalvin.dto;
 
+import com.example.myalvin.domain.entity.Aim;
 import com.example.myalvin.domain.entity.Member;
 import lombok.Data;
 
@@ -15,5 +16,10 @@ public class AimDto {
     private String description;
 
     private String images;
+
+    public AimDto(Aim aim) {
+
+
+    }
 
 }

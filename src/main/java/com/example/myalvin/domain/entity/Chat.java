@@ -7,9 +7,9 @@ import javax.persistence.*;
 
 import static javax.persistence.FetchType.LAZY;
 
-@Entity
+@Entity(name = "chat")
 @Getter
-public class Chat {
+public class Chat extends BaseTime {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
