@@ -3,18 +3,14 @@ package com.example.myalvin.controller;
 
 import com.example.myalvin.domain.entity.Member;
 import com.example.myalvin.dto.TokenDto;
-import com.example.myalvin.dto.member.LoginDto;
-import com.example.myalvin.dto.member.MemberLoginRequestDto;
-import com.example.myalvin.dto.member.MemberResponseDto;
-import com.example.myalvin.dto.member.MemberSignupDto;
+import com.example.myalvin.dto.member.*;
 import com.example.myalvin.service.MemberService;
 import com.example.myalvin.validator.MemberValidator;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.DisabledException;
-import org.springframework.security.authentication.LockedException;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.Cookie;
@@ -22,6 +18,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/member")
@@ -37,12 +36,13 @@ public class MemberController {
         this.memberValidator = memberValidator;
     }
 
-    @PostMapping(value ="/login")
+    @PostMapping(value = "/login")
     public ResponseEntity<TokenDto> login(@RequestBody LoginDto loginDto) {
 
-            return memberService.login(loginDto);
+        return memberService.login(loginDto);
 
     }
+
     @PostMapping(value = "/signup")
     public ResponseEntity<MemberResponseDto> signup(@RequestBody @Valid MemberSignupDto msdto) {
         Member result = memberService.signup(msdto);
@@ -50,40 +50,47 @@ public class MemberController {
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
-    @GetMapping("/email/{memberemail}")
-    public Member MemberEmail(@PathVariable String email) {
+    @GetMapping("/email/{email}")
+    public Optional<Member> MemberEmail(@PathVariable String email) {
 
-        Member findMemberByEmail = memberService.findByEmail(email);
-        return findMemberByEmail;
+        return memberService.findByEmail(email);
+
 
     }
 
-//    @GetMapping("/findmembers")
-//    public List<MemberDto> findAllMember() {
-//        List<Member> findMembers = memberService.findMembers();
-//        List<MemberDto> collect = findMembers.stream()
-//                .map(m -> new MemberDto(m.getName()))
-//                .collect(Collectors.toList());
-//
-//        return collect;
-//    }
-//
-//    @GetMapping("/name/findmember")
-//    public List<MemberDto> findNameMember(@PathVariable String name) {
-//        List<Member> findNameMembers = memberService.findName(name);
-//        List<MemberDto> collect = findNameMembers.stream()
-//                .map(m -> new MemberDto(m.getName()))
-//                .collect(Collectors.toList());
-//
-//        return collect;
-//
-//    }
+    @GetMapping("/findmembers")
+    public List<Member> findAllMember() {
+        return memberService.findMembers();
 
-    @PutMapping(value = "/changeinfo/{id}")
-    public Member.UpdateMemberResponse updateMember(@PathVariable("id") Long id, @RequestBody @Valid Member.UpdateMemberRequest request) {
-        memberService.update(id, request.getName());
-        Member findMember = memberService.findOne(id);
-        return new Member.UpdateMemberResponse(findMember.getId(), findMember.getEmail(), findMember.getPassword(), findMember.getPhone());
+
+    }
+
+    @GetMapping("/findmember/{name}")
+    public List<MemberDto> findNameMember(@PathVariable String name) {
+        List<Member> findNameMembers = memberService.findName(name);
+        List<MemberDto> collect = findNameMembers.stream()
+                .map(m -> new MemberDto(m.getId(),
+                        m.getEmail(),
+                        m.getPassword(),
+                        m.getName(),
+                        m.getPhone(),
+                        m.getFollower(),
+                        m.getFollowing(),
+                        m.getAim(),
+                        m.getChat()))
+                .collect(Collectors.toList());
+
+        return collect;
+
+    }
+
+    @PatchMapping(value = "/changeinfo/{id}")
+    public Member.UpdateMemberResponse updateMember(@PathVariable("id") Long id, @RequestBody @Valid Member request) {
+
+        memberService.update(id, request.getEmail(), request.getPassword(), request.getPhone());
+        Member putMember = memberService.findOne(id);
+        return new Member.UpdateMemberResponse(putMember.getId(), putMember.getEmail(), putMember.getPassword(), putMember.getPhone());
+
     }
 
 

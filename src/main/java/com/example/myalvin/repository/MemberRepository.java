@@ -11,17 +11,17 @@ import java.util.Optional;
 
 public interface MemberRepository extends JpaRepository<Member, Long> {
 
-        //List<Member> findAll();
-       // Optional<Member> findById(String email, String password);
-        Optional<Member> findByEmail(String email);
 
-        Optional<Member> findByPassword(String password);
+    List<Member> findAll();
 
-        Optional<Member> findByEmailAndPassword(String email, String password);
+    Optional<Member> findByEmail(String email);
 
-        @Query("SELECT m.password FROM member m WHERE m.email = :email")
-        String findPasswordByEmail(@Param("email") String email);
-    //Member findByMember(String email, String password);
+    Optional<Member> findByPassword(String password);
 
-        //List<Member> findAll(String name);
+    Optional<Member> findByEmailAndPassword(String email, String password);
+
+    @Query("SELECT m.password FROM member m WHERE m.email = :email")
+    String findPasswordByEmail(@Param("email") String email);
+
+    //List<Member> findAllByName(String name);
 }

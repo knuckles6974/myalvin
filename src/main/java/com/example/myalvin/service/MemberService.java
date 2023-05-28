@@ -6,7 +6,6 @@ import com.example.myalvin.config.TokenProvider;
 import com.example.myalvin.domain.entity.Member;
 import com.example.myalvin.dto.TokenDto;
 import com.example.myalvin.dto.member.LoginDto;
-import com.example.myalvin.dto.member.MemberLoginResponseDto;
 import com.example.myalvin.dto.member.MemberSignupDto;
 import com.example.myalvin.repository.MemberRepository;
 import com.example.myalvin.repository.MemberRepositoryImpl;
@@ -27,9 +26,13 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
 import javax.persistence.EntityNotFoundException;
+import javax.persistence.PersistenceContext;
 import javax.servlet.http.Cookie;
 import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class MemberService implements UserDetailsService {
@@ -60,16 +63,17 @@ public class MemberService implements UserDetailsService {
     }
 
 
-//    public List<Member> findMembers() {
-//
-//        return memberRepository.findAll();
-//
-//    }
-//
-//    public List<Member> findName(String name) {
-//
-//        return memberRepository.findAll(name);
-//    }
+    public List<Member> findMembers() {
+
+        return memberRepository.findAll();
+
+
+    }
+
+    public List<Member> findName(String name) {
+
+        return memberRepositoryImpl.findAllByName(name);
+    }
 
     public ResponseEntity<TokenDto> login(LoginDto loginDto) {
         try {
@@ -118,42 +122,22 @@ public class MemberService implements UserDetailsService {
                 .orElseThrow(() -> new EntityNotFoundException("Member not found with id: " + memberId));
     }
 
-    public void update(Long id, String name) {
+
+    @Transactional
+    public void update(Long id, String email, String password, String phone) {
+        Member member = memberRepositoryImpl.findOne(id);
+        member.setEmail(email);
+        member.setPassword(password);
+        member.setPhone(phone);
+
 
     }
 
-    public Member findByEmail(String email) {
-        memberRepository.findByEmail(email);
-        return new Member();
+    public Optional<Member> findByEmail(String email) {
+        return memberRepository.findByEmail(email);
+
 
     }
-
-
-//    public Member updateInfo(MemberUpdateInfo memberUpdateInfo) {
-//
-//        Member memberbyemail = new Member();
-//        String email = memberbyemail.getEmail();
-//        if (email == null) {
-//            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Unauthorized");
-//
-//        }
-//
-//        Member findmember = findByEmail(email);
-//        if (memberUpdateInfo.getPassword() != null) {
-//            findmember.updatePassword(memberUpdateInfo.getPassword());
-//        }
-//
-//        if (memberUpdateInfo.getEmail() != null) {
-//            findmember.updateEmail(memberUpdateInfo.getEmail());
-//        }
-//
-//        if (memberUpdateInfo.getPhone() != null) {
-//            findmember.updatePhone(memberUpdateInfo.getPhone());
-//        }
-//
-//        return memberRepository.updateMember(findmember);
-//    }
-//
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

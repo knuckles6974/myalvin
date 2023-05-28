@@ -21,6 +21,7 @@ import static javax.persistence.FetchType.LAZY;
 
 @Entity(name = "member")
 @Getter
+@Setter
 @NoArgsConstructor
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "member")
@@ -104,6 +105,7 @@ public class Member implements UserDetails {
     public boolean isEnabled() {
         return true;  // Account is enabled
     }
+
     public void updatePassword(String password) {
         this.password = password;
     }
@@ -116,10 +118,6 @@ public class Member implements UserDetails {
         this.email = email;
     }
 
-    @Data
-    public static class UpdateMemberRequest {
-        private String name;
-    }
 
     @Data
     @AllArgsConstructor
