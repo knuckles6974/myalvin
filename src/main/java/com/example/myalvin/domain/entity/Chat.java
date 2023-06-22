@@ -1,6 +1,7 @@
 package com.example.myalvin.domain.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 
 import javax.persistence.*;
@@ -17,7 +18,7 @@ public class Chat extends BaseTime {
 
     private int room_id;
 
-    @ManyToOne(fetch = LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
 

@@ -19,6 +19,7 @@ public class Alarm extends BaseTime{
     @JoinColumn(name = "member_id")
     private Member member;
 
+
     @Column(length = 200)
     private String description;
     private LocalDateTime time;

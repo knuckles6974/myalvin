@@ -4,7 +4,10 @@ import com.example.myalvin.domain.entity.Aim;
 import com.example.myalvin.repository.AimRepository;
 import com.example.myalvin.repository.AimRepositoryImpl;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -15,18 +18,38 @@ public class AimService {
     private final AimRepository aimRepository;
 
     private final AimRepositoryImpl aimRepositoryImpl;
-    public Optional<Aim> findallaim(long member_id) {
+
+    public Optional<Aim> findallaim(Long member_id) {
 
 
         return aimRepository.findById(member_id);
     }
 
+    @Transactional
+    public Aim registeraim(Aim aim) {
+
+        return aimRepositoryImpl.save(aim);
+    }
+
+    public Aim delete_aim(Long member_id) {
+
+        Optional<Aim> aimOptional = aimRepository.findById(member_id);
+        if (aimOptional.isPresent()) {
+            Aim aim = aimOptional.get();
+            aimRepository.deleteById(member_id);
+            return aim;
+
+        }
+
+        return null;
+
+
+    }
+
+
 //    public String update_aim() {
 //    }
 //
-//    public void delete_aim() {
-//    }
-//
-//    public String registeraim(AimDto aim, String memberId) {
-//    }
+
+
 }

@@ -11,4 +11,8 @@ public interface AimRepository extends JpaRepository<Aim, Long> {
 
         List<Aim> findById(int member_id);
 
+        Aim deleteById(int member_id);
+
+
+
 }

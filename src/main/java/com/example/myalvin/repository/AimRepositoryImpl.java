@@ -1,5 +1,6 @@
 package com.example.myalvin.repository;
 
+import com.example.myalvin.domain.entity.Aim;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -14,5 +15,12 @@ public class AimRepositoryImpl {
     private final EntityManager em;
 
 
+
+    public Aim save(Aim aim) {
+
+        em.persist(aim);
+
+        return aim;
+    }
 
 }

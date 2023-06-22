@@ -8,8 +8,6 @@ import com.example.myalvin.domain.entity.Member;
 import com.example.myalvin.dto.AimDto;
 import com.example.myalvin.service.AimService;
 import com.example.myalvin.service.MemberService;
-import com.example.myalvin.util.SecurityUtil;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +17,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -35,10 +34,9 @@ public class AimController {
 
     @GetMapping("/all/{member_id}")
     @LoginCheck(type = UserType.MEMBER)
-    public ResponseEntity<List<AimDto>> findallaims(@PathVariable long member_id, HttpServletRequest request, HttpServletResponse response) {
+    public ResponseEntity<List<AimDto>> findallaims(@PathVariable Long member_id, HttpServletRequest request, HttpServletResponse response) {
 
-        if(memberService.findOne(member_id)==null)
-        {
+        if (memberService.findOne(member_id) == null) {
             Cookie cookie = memberService.logout();
             response.addCookie(cookie);
 
@@ -46,10 +44,8 @@ public class AimController {
             if (session != null) {
                 session.invalidate();
             }
-            return new ResponseEntity<>(null,HttpStatus.OK);
-        }
-        else
-        {
+            return new ResponseEntity<>(null, HttpStatus.OK);
+        } else {
             Optional<Aim> findaim = aimService.findallaim(member_id);
             List<AimDto> collect = findaim.stream()
                     .map(aim -> new AimDto(aim))
@@ -61,27 +57,39 @@ public class AimController {
 
     }
 
-    @PostMapping("/post")
+    @PostMapping(value="/post/{member_id}")
     @LoginCheck(type = UserType.MEMBER)
-    public void registeraim(@RequestBody AimDto aim, HttpServletRequest request) {
+    public ResponseEntity<AimDto> registeraim(@PathVariable("member_id") Long member_id, @RequestBody @Valid Aim aim) {
 
-        
+        Member member = memberService.findOne(member_id);
+        if (member == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        // Set the member of the Aim
+        aim.setMember(member);
+
+        Aim result = aimService.registeraim(aim);
+        AimDto response = AimDto.postAimDto(result);
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
 
 
     }
 
-//    @PutMapping(value = "/update/{member_id}")
-//    public String update_aim(@PathVariable(name = "member_id") Long member_id) {
-//
-//        return aimService.update_aim();
-//
-//    }
-//
-//    @DeleteMapping("/aim/delete/{user_id}")
-//    public void delete_aim(@PathVariable(name = "user_id") Long user_id) {
-//
-//        aimService.delete_aim();
-//    }
+    @PatchMapping(value = "/update/{member_id}")
+    public String update_aim() {
+
+        return "";
+    }
+
+    @DeleteMapping("/delete/{member_id}")
+    public void delete_aim(@PathVariable("member_id") Long member_id) {
+
+        aimService.delete_aim(member_id);
+
+
+
+    }
 
 
 }

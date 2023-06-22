@@ -1,6 +1,8 @@
 package com.example.myalvin.domain.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.data.annotation.CreatedDate;
@@ -45,26 +47,34 @@ public class Member implements UserDetails {
     @Column(length = 20)
     private String phone;
 
+    @Column
     private int follower;
 
+    @Column
     private int following;
 
-    @OneToMany(mappedBy = "member", fetch = LAZY, cascade = CascadeType.ALL)//양방향  //읽기전용
-    private List<Aim> aim = new ArrayList<>(); //nullpoint
+    @JsonIgnore
+    @Nullable
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    private List<Aim> aim = new ArrayList<>();
 
 
-    @OneToMany(mappedBy = "member", fetch = LAZY, cascade = CascadeType.PERSIST)
+    @JsonIgnore
+    @Nullable
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     private List<Chat> chat = new ArrayList<>();
+
 
     @CreatedDate
     @Column(updatable = false)
     private LocalDateTime createdDate;
 
     @LastModifiedDate
+    @Column
     private LocalDateTime lastModifiedDate;
 
     @Builder
-    public Member(Long id, @NonNull String email, @NonNull String password, String name, String phone, int follower, int following) {
+    public Member(Long id, @NonNull String email, @NonNull String password, String name, String phone, int follower, int following, @NonNull List<Aim> aim, @NonNull List<Chat> chat) {
         this.id = id;
         this.email = email;
         this.password = password;
@@ -72,6 +82,8 @@ public class Member implements UserDetails {
         this.phone = phone;
         this.follower = follower;
         this.following = following;
+        this.aim = aim;
+        this.chat = chat;
     }
 
 
