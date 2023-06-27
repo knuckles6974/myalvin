@@ -23,4 +23,9 @@ public class AimRepositoryImpl {
         return aim;
     }
 
+   public Aim findOne(Long id) {
+
+        return em.find(Aim.class, id);
+
+   }
 }

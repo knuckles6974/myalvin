@@ -76,10 +76,13 @@ public class AimController {
 
     }
 
-    @PatchMapping(value = "/update/{member_id}")
-    public String update_aim() {
+    @PatchMapping(value = "/update/{id}")
+    public ResponseEntity<Optional<Aim>> update_aim(@PathVariable("id") Long id, @RequestBody @Valid Aim request) {
 
-        return "";
+        aimService.update_aim(id, request.getTitle(),request.getDescription(), request.getImages());
+        Optional<Aim> aim = aimService.findOne(id);
+
+        return new ResponseEntity<>(aim, HttpStatus.OK);
     }
 
     @DeleteMapping("/delete/{member_id}")
