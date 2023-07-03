@@ -1,36 +1,57 @@
 package com.example.myalvin.controller;
 
 
+import com.example.myalvin.aop.LoginCheck;
+import com.example.myalvin.domain.entity.Member;
+import com.example.myalvin.domain.entity.Mypage;
+import com.example.myalvin.dto.MypageDto;
+import com.example.myalvin.service.MemberService;
 import com.example.myalvin.service.MypageService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @RestController
-@RequestMapping("/mypage/")
+@RequestMapping("/mypage")
 public class MypageController {
 
     @Autowired
     private MypageService mypageService;
 
+    private MemberService memberService;
+
+    public MypageController(MemberService memberService) {
+        this.memberService = memberService;
+
+    }
+
     @GetMapping("/{member_id}")
-    public String getmypage() {
+    @LoginCheck(type = LoginCheck.UserType.MYPAGE)
+    public ResponseEntity<MypageDto> getmypage(@PathVariable Long member_id) {
 
-        return mypageService.getmypage();
+        Member member = memberService.findOne(member_id);
+        if (member == null) {
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+
+        } else {
+            Mypage mypage = mypageService.getmypage(member_id);
+            MypageDto mypageDto = new MypageDto(mypage);
+
+            return new ResponseEntity<>(mypageDto, HttpStatus.OK);
+        }
+
 
     }
 
-    @GetMapping("/mypage/update/{user_id}")
-    public String update_mypage(@PathVariable(name = "user_id") Long user_id) {
 
-        return mypageService.update_mypage();
-
-    }
-
-    @DeleteMapping("/mypage/delete/{user_id}")
-    public void delete_mypage() {
-
-        mypageService.delete_mypage();
-    }
+//    @PatchMapping("/update/{member_id}")
+//    public void update_mypage() {
+//
+//        mypageService.update_mypage();
+//    }
 
 
 }

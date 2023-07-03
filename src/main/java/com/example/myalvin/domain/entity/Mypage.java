@@ -1,6 +1,7 @@
 package com.example.myalvin.domain.entity;
 
 import lombok.Getter;
+import lombok.Setter;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 
 import javax.persistence.*;
@@ -9,6 +10,7 @@ import static javax.persistence.FetchType.LAZY;
 
 @Entity(name = "mypage")
 @Getter
+@Setter
 public class Mypage extends BaseTime {
 
     @Id

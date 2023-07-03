@@ -7,6 +7,8 @@ import lombok.NonNull;
 
 @Data
 public class AimDto {
+
+    private Long id;
     private String title;
 
     private Member member;
@@ -16,6 +18,7 @@ public class AimDto {
     private String images;
 
     public AimDto(Aim aim) {
+        this.id = aim.getId();
         this.title = aim.getTitle();
         this.member = aim.getMember();
         this.description = aim.getDescription();

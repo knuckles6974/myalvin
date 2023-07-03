@@ -34,16 +34,12 @@ public class AimController {
 
     @GetMapping("/all/{member_id}")
     @LoginCheck(type = UserType.MEMBER)
-    public ResponseEntity<List<AimDto>> findallaims(@PathVariable Long member_id, HttpServletRequest request, HttpServletResponse response) {
+    public ResponseEntity<List<AimDto>> findallaims(@PathVariable Long member_id,  HttpServletResponse response) {
 
         if (memberService.findOne(member_id) == null) {
             Cookie cookie = memberService.logout();
             response.addCookie(cookie);
 
-            HttpSession session = request.getSession(false);
-            if (session != null) {
-                session.invalidate();
-            }
             return new ResponseEntity<>(null, HttpStatus.OK);
         } else {
             Optional<Aim> findaim = aimService.findallaim(member_id);
@@ -57,13 +53,13 @@ public class AimController {
 
     }
 
-    @PostMapping(value="/post/{member_id}")
+    @PostMapping(value = "/post/{member_id}")
     @LoginCheck(type = UserType.MEMBER)
     public ResponseEntity<AimDto> registeraim(@PathVariable("member_id") Long member_id, @RequestBody @Valid Aim aim) {
 
         Member member = memberService.findOne(member_id);
         if (member == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
 
         // Set the member of the Aim
@@ -79,7 +75,7 @@ public class AimController {
     @PatchMapping(value = "/update/{id}")
     public ResponseEntity<Optional<Aim>> update_aim(@PathVariable("id") Long id, @RequestBody @Valid Aim request) {
 
-        aimService.update_aim(id, request.getTitle(),request.getDescription(), request.getImages());
+        aimService.update_aim(id, request.getTitle(), request.getDescription(), request.getImages());
         Optional<Aim> aim = aimService.findOne(id);
 
         return new ResponseEntity<>(aim, HttpStatus.OK);
@@ -89,7 +85,6 @@ public class AimController {
     public void delete_aim(@PathVariable("member_id") Long member_id) {
 
         aimService.delete_aim(member_id);
-
 
 
     }
