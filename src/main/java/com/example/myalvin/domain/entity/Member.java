@@ -18,6 +18,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.*;
 
+import static javax.persistence.FetchType.EAGER;
 import static javax.persistence.FetchType.LAZY;
 
 
@@ -26,7 +27,6 @@ import static javax.persistence.FetchType.LAZY;
 @Setter
 @NoArgsConstructor
 @EntityListeners(AuditingEntityListener.class)
-@Table(name = "member")
 public class Member implements UserDetails {
 
     @Id
@@ -63,6 +63,11 @@ public class Member implements UserDetails {
     @Nullable
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     private List<Chat> chat = new ArrayList<>();
+
+    @JsonIgnore
+    @OneToOne(mappedBy = "member", cascade = CascadeType.ALL)
+    private Mypage mypage;
+
 
 
     @CreatedDate

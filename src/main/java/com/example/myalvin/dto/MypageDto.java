@@ -16,7 +16,7 @@ public class MypageDto {
 
     private String nickname;
 
-    private Charactor charactor;
+    //private Charactor charactor;
 
     private String introduction;
 
@@ -26,10 +26,13 @@ public class MypageDto {
         this.id = mypage.getId();
         this.member = mypage.getMember();
         this.nickname = mypage.getNickname();
-        this.charactor = mypage.getCharactor();
+        //this.charactor = mypage.getCharactor();
         this.introduction = mypage.getIntroduction();
         this.dailyroutine = mypage.getDailyroutine();
 
 
+
     }
+
+
 }

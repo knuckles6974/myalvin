@@ -58,8 +58,8 @@ public class AimController {
     public ResponseEntity<AimDto> registeraim(@PathVariable("member_id") Long member_id, @RequestBody @Valid Aim aim) {
 
         Member member = memberService.findOne(member_id);
-        if (member == null) {
-            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        if (member.getId() == null) {
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
 
         // Set the member of the Aim

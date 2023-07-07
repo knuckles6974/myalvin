@@ -22,6 +22,7 @@ public class Alarm extends BaseTime{
 
     @Column(length = 200)
     private String description;
+
     private LocalDateTime time;
 
 }

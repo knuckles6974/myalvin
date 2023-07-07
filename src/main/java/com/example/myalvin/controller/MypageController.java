@@ -12,6 +12,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.EntityNotFoundException;
+import javax.validation.Valid;
 import java.util.Optional;
 
 @RestController
@@ -28,12 +30,37 @@ public class MypageController {
 
     }
 
+    @PostMapping(value = "/post/{member_id}")
+    @LoginCheck(type = LoginCheck.UserType.MEMBER)
+    public ResponseEntity<MypageDto> makemypage(@PathVariable Long member_id, @RequestBody @Valid Mypage mypage) {
+
+
+        Member member;
+
+        try {
+            member = memberService.findOne(member_id);
+        } catch (EntityNotFoundException e) {
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
+
+        Mypage mid = mypageService.getmypage(member_id);
+        if (member.getId() == mid.getId()) {
+            return new ResponseEntity<>(null, HttpStatus.NOT_ACCEPTABLE);
+        }
+
+        mypage.setMember(member);
+        Mypage result = mypageService.makemypage(mypage);
+        MypageDto mypageDto = new MypageDto(result);
+        return new ResponseEntity<>(mypageDto, HttpStatus.CREATED);
+    }
+
+
     @GetMapping("/{member_id}")
-    @LoginCheck(type = LoginCheck.UserType.MYPAGE)
+    @LoginCheck(type = LoginCheck.UserType.MEMBER)
     public ResponseEntity<MypageDto> getmypage(@PathVariable Long member_id) {
 
         Member member = memberService.findOne(member_id);
-        if (member == null) {
+        if (member.getId() == null) {
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
 
         } else {

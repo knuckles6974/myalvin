@@ -5,6 +5,7 @@ import com.example.myalvin.repository.MypageRepository;
 import com.example.myalvin.repository.MypageRepositoryImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -16,6 +17,14 @@ public class MypageService {
 
     public final MypageRepositoryImpl mypageRepositoryimpl;
 
+
+    @Transactional
+    public Mypage makemypage(Mypage mypage){
+
+
+        return mypageRepositoryimpl.save(mypage);
+
+    }
 
     public Mypage getmypage(Long member_id) {
 
