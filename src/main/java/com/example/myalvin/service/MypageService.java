@@ -19,7 +19,7 @@ public class MypageService {
 
 
     @Transactional
-    public Mypage makemypage(Mypage mypage){
+    public Mypage makemypage(Mypage mypage) {
 
 
         return mypageRepositoryimpl.save(mypage);
@@ -34,8 +34,8 @@ public class MypageService {
 
     }
 
-//    public String update_mypage() {
-//    }
-//
+    public void update_mypage() {
+    }
+
 
 }

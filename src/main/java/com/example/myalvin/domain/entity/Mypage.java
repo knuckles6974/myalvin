@@ -21,7 +21,7 @@ public class Mypage extends BaseTime {
     private Long id;
 
 
-    @OneToOne(fetch = EAGER)
+    @OneToOne
     @JoinColumn(name = "member_id")
     private Member member;
 

@@ -69,6 +69,9 @@ public class Member implements UserDetails {
     private Mypage mypage;
 
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "admin_id")
+    private Admin admin;
 
     @CreatedDate
     @Column(updatable = false)
@@ -77,6 +80,8 @@ public class Member implements UserDetails {
     @LastModifiedDate
     @Column
     private LocalDateTime lastModifiedDate;
+
+
 
     @Builder
     public Member(Long id, @NonNull String email, @NonNull String password, String name, String phone, int follower, int following, @NonNull List<Aim> aim, @NonNull List<Chat> chat) {
@@ -90,6 +95,7 @@ public class Member implements UserDetails {
         this.aim = aim;
         this.chat = chat;
     }
+
 
 
     @Override

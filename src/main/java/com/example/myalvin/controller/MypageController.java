@@ -74,11 +74,11 @@ public class MypageController {
     }
 
 
-//    @PatchMapping("/update/{member_id}")
-//    public void update_mypage() {
-//
-//        mypageService.update_mypage();
-//    }
+    @PatchMapping("/update/{member_id}")
+    public void update_mypage() {
+
+        mypageService.update_mypage();
+    }
 
 
 }

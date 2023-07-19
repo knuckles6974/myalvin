@@ -40,7 +40,7 @@ public class AimController {
             Cookie cookie = memberService.logout();
             response.addCookie(cookie);
 
-            return new ResponseEntity<>(null, HttpStatus.OK);
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         } else {
             Optional<Aim> findaim = aimService.findallaim(member_id);
             List<AimDto> collect = findaim.stream()

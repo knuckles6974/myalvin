@@ -2,6 +2,7 @@ package com.example.myalvin.domain.entity;
 
 import lombok.Getter;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -21,6 +22,7 @@ public class Alarm extends BaseTime{
 
 
     @Column(length = 200)
+    @Nullable
     private String description;
 
     private LocalDateTime time;
