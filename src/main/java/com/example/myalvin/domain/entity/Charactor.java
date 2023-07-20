@@ -2,14 +2,13 @@ package com.example.myalvin.domain.entity;
 
 
 import com.example.myalvin.domain.LevelStatus;
+import com.example.myalvin.util.StringListConvertor;
 import lombok.Getter;
-import org.hibernate.annotations.Type;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
 
 import javax.persistence.*;
 
-import static javax.persistence.FetchType.EAGER;
-import static javax.persistence.FetchType.LAZY;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity(name = "charactor")
 @Getter
@@ -22,12 +21,8 @@ public class Charactor extends BaseTime {
     @Enumerated(EnumType.STRING)
     private LevelStatus levelstatus;//레벨상태
 
-
-
-    @Type(type="json")
-    @Column(columnDefinition = "json")
-    private String charactor_image; //admin
-
+    @Convert(converter = StringListConvertor.class)
+    private List<String> charactor_images = new ArrayList<>();
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "mypage_id")

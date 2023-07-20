@@ -27,6 +27,7 @@ public class AlarmService {
 
 
     public String update_alarm() {
+        return null;
     }
 
 
@@ -42,6 +43,7 @@ public class AlarmService {
     }
 
     public String delete_alarm() {
+        return null;
     }
 
 

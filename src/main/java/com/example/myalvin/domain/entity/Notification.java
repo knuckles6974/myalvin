@@ -1,11 +1,13 @@
 package com.example.myalvin.domain.entity;
 
+import com.example.myalvin.util.StringListConvertor;
 import com.fasterxml.jackson.databind.ser.Serializers;
 import lombok.Getter;
 import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static javax.persistence.FetchType.LAZY;
@@ -21,15 +23,12 @@ public class Notification extends BaseTime {
 
     private boolean repetition;
 
-    @ElementCollection
-    private List<String> sounds;
+    @Convert(converter = StringListConvertor.class)
+    private List<String> sounds = new ArrayList<>();
 
     @OneToOne(fetch = LAZY)
-    @JoinColumn(name="alarm_id")
+    @JoinColumn(name = "alarm_id")
     private Alarm alarm;
-
-
-
 
 
 }
