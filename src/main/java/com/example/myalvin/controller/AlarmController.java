@@ -30,7 +30,7 @@ public class AlarmController {
         this.memberService = memberService;
     }
 
-    @GetMapping("/alarm/getalarm/{user_id}")
+    @GetMapping("/alarm/upalarm/{user_id}")
     @LoginCheck(type = LoginCheck.UserType.MEMBER)
     public String update_alarm(@PathVariable Long member_id) {
 
@@ -40,11 +40,13 @@ public class AlarmController {
 
     @PostMapping("/create_alarm")
     @LoginCheck(type = LoginCheck.UserType.MEMBER)
-    public ResponseEntity<List<AlarmDto>> create_alarm() {
+    public ResponseEntity<Alarm> create_alarm() {
 
-        List<AlarmDto> collect = alarmService.create_alarm();
+        Alarm collect = alarmService.create_alarm();
         return new ResponseEntity<>(collect, HttpStatus.CREATED);
     }
+
+
 
     @GetMapping("/{member_id}")
     @LoginCheck(type = LoginCheck.UserType.MEMBER)

@@ -3,6 +3,7 @@ package com.example.myalvin.domain.entity;
 
 import com.example.myalvin.domain.LevelStatus;
 import lombok.Getter;
+import org.hibernate.annotations.Type;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 
 import javax.persistence.*;
@@ -23,6 +24,8 @@ public class Charactor extends BaseTime {
 
 
 
+    @Type(type="json")
+    @Column(columnDefinition = "json")
     private String charactor_image; //admin
 
 

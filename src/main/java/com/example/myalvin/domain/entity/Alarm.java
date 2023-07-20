@@ -20,6 +20,8 @@ public class Alarm extends BaseTime{
     @JoinColumn(name = "member_id")
     private Member member;
 
+    @OneToOne(mappedBy = "alarm", cascade = CascadeType.ALL)
+    private Notification notification;
 
     @Column(length = 200)
     @Nullable
