@@ -9,6 +9,7 @@ import javax.persistence.PersistenceContext;
 
 
 @RequiredArgsConstructor
+@Repository
 public class AimRepositoryImpl {
 
     @PersistenceContext

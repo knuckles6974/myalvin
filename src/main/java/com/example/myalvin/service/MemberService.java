@@ -9,6 +9,7 @@ import com.example.myalvin.dto.member.LoginDto;
 import com.example.myalvin.dto.member.MemberSignupDto;
 import com.example.myalvin.repository.MemberRepository;
 import com.example.myalvin.repository.MemberRepositoryImpl;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

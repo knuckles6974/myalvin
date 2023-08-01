@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/mypage")
@@ -74,10 +73,18 @@ public class MypageController {
     }
 
 
-    @PatchMapping("/update/{member_id}")
-    public void update_mypage() {
+    @PatchMapping("/update_mypage/{member_id}")
+    public ResponseEntity<Mypage> update_mypage(@PathVariable Long member_id) {
 
-        mypageService.update_mypage();
+        Member member = memberService.findOne(member_id);
+        if(member.getId() == null){
+            return new ResponseEntity<>(null,HttpStatus.BAD_REQUEST);
+        } else {
+            Mypage mypage = mypageService.update_mypage(member_id);
+            return new ResponseEntity<>(mypage, HttpStatus.OK);
+
+        }
+
     }
 
 

@@ -10,6 +10,7 @@ import java.util.List;
 
 
 @RequiredArgsConstructor
+@Repository
 public class MemberRepositoryImpl {
 
     @PersistenceContext

@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
-@Repository
+
 public interface MypageRepository extends JpaRepository<Mypage, Long> {
     Optional<Mypage> findById(int member_id);
 }

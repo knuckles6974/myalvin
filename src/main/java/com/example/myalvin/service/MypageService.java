@@ -34,7 +34,13 @@ public class MypageService {
 
     }
 
-    public void update_mypage() {
+    @Transactional
+    public Mypage update_mypage(Long member_id) {
+
+        Mypage mypage = mypageRepositoryimpl.findOne(member_id);
+
+
+        return null;
     }
 
 
